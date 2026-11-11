@@ -7,9 +7,16 @@ kept thirty-seven Australian provinces, and Norfolk Island changed hands on ever
 alternate build. Anything that makes a decision about the current state must read the
 files it is about to edit, which is what this does.
 """
+import os as _os
+_ROOT = _os.environ.get("HPM1800_ROOT") or _os.path.dirname(
+    _os.path.dirname(_os.path.abspath(__file__)))
+_SRC = _os.environ.get("HPM1800_SRC") or _os.path.join(_ROOT, "hpm", "HPM - Copy")
+_BUILD = _os.environ.get("HPM1800_BUILD") or _os.path.join(_ROOT, "build", "HPM")
+_WORK = _os.environ.get("HPM1800_WORK") or _os.path.join(_ROOT, "work")
+_TOOLS = _os.path.join(_ROOT, "tools")
 import re, glob, os, collections
 
-MOD = "/home/claude/build/HPM"
+MOD = _BUILD
 
 def province_state():
     """owner, controller and cores per province id, read from history/provinces."""

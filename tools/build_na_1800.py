@@ -4,9 +4,16 @@ Scale: HPM's 1836 data runs at ~0.25 of real population (US 1836 real 15.4M -> H
 world real ~1.1bn -> HPM 266.8M). We keep 0.25 so North America stays commensurate with
 the rest of the world, which is untouched.
 """
+import os as _os
+_ROOT = _os.environ.get("HPM1800_ROOT") or _os.path.dirname(
+    _os.path.dirname(_os.path.abspath(__file__)))
+_SRC = _os.environ.get("HPM1800_SRC") or _os.path.join(_ROOT, "hpm", "HPM - Copy")
+_BUILD = _os.environ.get("HPM1800_BUILD") or _os.path.join(_ROOT, "build", "HPM")
+_WORK = _os.environ.get("HPM1800_WORK") or _os.path.join(_ROOT, "work")
+_TOOLS = _os.path.join(_ROOT, "tools")
 import json, collections, math
 
-W = "/home/claude/work"
+W = _WORK
 D = json.load(open(f"{W}/world_data.json"))
 ST = {int(k): v for k, v in json.load(open(f"{W}/prov_stats.json")).items()}
 SCALE = 0.25

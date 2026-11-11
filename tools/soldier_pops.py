@@ -20,9 +20,16 @@ the regiments drawing on it. The people are moved out of farmers and labourers i
 same province rather than invented, so the province total, the national total and the
 world total are all unchanged -- the demographic audit still has to pass, and it does.
 """
+import os as _os
+_ROOT = _os.environ.get("HPM1800_ROOT") or _os.path.dirname(
+    _os.path.dirname(_os.path.abspath(__file__)))
+_SRC = _os.environ.get("HPM1800_SRC") or _os.path.join(_ROOT, "hpm", "HPM - Copy")
+_BUILD = _os.environ.get("HPM1800_BUILD") or _os.path.join(_ROOT, "build", "HPM")
+_WORK = _os.environ.get("HPM1800_WORK") or _os.path.join(_ROOT, "work")
+_TOOLS = _os.path.join(_ROOT, "tools")
 import re, glob, os, collections
 
-MOD = "/home/claude/build/HPM"
+MOD = _BUILD
 PER_REGIMENT = 900      # soldier pop units needed to field one regiment at our scale
 # The plains and woodland nations are small, and a bar set for European states left
 # almost all of them with a single token regiment. Their warriors are irregulars drawn

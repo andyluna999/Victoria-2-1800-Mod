@@ -5,10 +5,17 @@ Spain"), which means the viceroyalty and the nation are one object: the name can
 change at independence and the republic cannot be released by rebels. This moves the
 territory onto a colonial tag and leaves the republic as a coreless claimant.
 """
+import os as _os
+_ROOT = _os.environ.get("HPM1800_ROOT") or _os.path.dirname(
+    _os.path.dirname(_os.path.abspath(__file__)))
+_SRC = _os.environ.get("HPM1800_SRC") or _os.path.join(_ROOT, "hpm", "HPM - Copy")
+_BUILD = _os.environ.get("HPM1800_BUILD") or _os.path.join(_ROOT, "build", "HPM")
+_WORK = _os.environ.get("HPM1800_WORK") or _os.path.join(_ROOT, "work")
+_TOOLS = _os.path.join(_ROOT, "tools")
 import json, collections
 
 EXP = "/mnt/user-data/uploads/hpm_world_1836.json"
-OUT = "/home/claude/work/export_split.json"
+OUT = f"{_WORK}/export_split.json"
 d = json.load(open(EXP))
 P, C = d["provinces"], d["countries"]
 

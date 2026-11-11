@@ -1,6 +1,13 @@
 """1800 province variables for North America: railroads, forts, naval bases, RGOs."""
+import os as _os
+_ROOT = _os.environ.get("HPM1800_ROOT") or _os.path.dirname(
+    _os.path.dirname(_os.path.abspath(__file__)))
+_SRC = _os.environ.get("HPM1800_SRC") or _os.path.join(_ROOT, "hpm", "HPM - Copy")
+_BUILD = _os.environ.get("HPM1800_BUILD") or _os.path.join(_ROOT, "build", "HPM")
+_WORK = _os.environ.get("HPM1800_WORK") or _os.path.join(_ROOT, "work")
+_TOOLS = _os.path.join(_ROOT, "tools")
 import json
-W="/home/claude/work"
+W=_WORK
 D=json.load(open(f"{W}/world_data.json"))
 NA={int(k):v for k,v in D["prov"].items() if v["ct"]=="north_america"}
 byname={}
@@ -43,8 +50,8 @@ for n in SUGAR:
 # minerals and chemicals that were not mined anywhere near these places in 1800
 RGO={"Salt Lake City":"cattle","Cody":"cattle","Bismarck":"cattle","Dupree":"cattle",
      "Minot":"cattle","Carson City":"cattle","Elko":"wool","Las Vegas":"cattle",
-     "Flagstaff":"wool","Lubbock":"cattle","Lake Charles":"timber","Shreveport":"timber",
-     "Fort MacLeod":"cattle","Sudbury":"timber","Vancouver Island":"timber","Banff":"timber",
+     "Flagstaf":"wool","Lubbock":"cattle","Lake Charles":"timber","Shreveport":"timber",
+     "Fort MacLeod":"cattle","Sudbury":"timber","Vancouver Island":"timber","Banf":"timber",
      "Millertown":"fish","El Paso":"cattle","Loa":"cattle","Moab":"cattle","Grand Junction":"cattle"}
 for n,g in RGO.items():
     if n in byname: setv(pid(n), trade_goods=g)

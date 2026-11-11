@@ -23,9 +23,16 @@ This checks the chains as a graph instead of as a playthrough.
 
 It reports; it does not rewrite.
 """
+import os as _os
+_ROOT = _os.environ.get("HPM1800_ROOT") or _os.path.dirname(
+    _os.path.dirname(_os.path.abspath(__file__)))
+_SRC = _os.environ.get("HPM1800_SRC") or _os.path.join(_ROOT, "hpm", "HPM - Copy")
+_BUILD = _os.environ.get("HPM1800_BUILD") or _os.path.join(_ROOT, "build", "HPM")
+_WORK = _os.environ.get("HPM1800_WORK") or _os.path.join(_ROOT, "work")
+_TOOLS = _os.path.join(_ROOT, "tools")
 import re, glob, os, collections, sys
 
-MOD = "/home/claude/build/HPM"
+MOD = _BUILD
 def rd(p): return re.sub(r"#.*", "", open(p, encoding="cp1252", errors="replace").read())
 
 OURS = sorted(glob.glob(f"{MOD}/events/1800_*.txt"))

@@ -13,9 +13,16 @@ and an event converts one into the other on the date it actually happened.
   Karamanli Tripoli    -> Ottoman Tripolitania, 1835, when the Porte lands troops and
                           ends 124 years of Karamanli rule
 """
+import os as _os
+_ROOT = _os.environ.get("HPM1800_ROOT") or _os.path.dirname(
+    _os.path.dirname(_os.path.abspath(__file__)))
+_SRC = _os.environ.get("HPM1800_SRC") or _os.path.join(_ROOT, "hpm", "HPM - Copy")
+_BUILD = _os.environ.get("HPM1800_BUILD") or _os.path.join(_ROOT, "build", "HPM")
+_WORK = _os.environ.get("HPM1800_WORK") or _os.path.join(_ROOT, "work")
+_TOOLS = _os.path.join(_ROOT, "tools")
 import json, re, glob, os, collections
 
-MOD = "/home/claude/build/HPM"; W = "/home/claude/work"
+MOD = _BUILD; W = _WORK
 L = json.load(open(f"{W}/world_live.json"))
 log = collections.Counter()
 def rd(p): return open(p, encoding="cp1252", errors="replace").read()

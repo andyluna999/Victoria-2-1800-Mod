@@ -19,9 +19,16 @@ roughly 575,000 Russians against some 500,000 indigenous people -- Siberian Tata
 Khanty and Mansi, Buryats, Yakuts, Evenks. The Russian share here is the 1890s, after
 the Trans-Siberian.
 """
+import os as _os
+_ROOT = _os.environ.get("HPM1800_ROOT") or _os.path.dirname(
+    _os.path.dirname(_os.path.abspath(__file__)))
+_SRC = _os.environ.get("HPM1800_SRC") or _os.path.join(_ROOT, "hpm", "HPM - Copy")
+_BUILD = _os.environ.get("HPM1800_BUILD") or _os.path.join(_ROOT, "build", "HPM")
+_WORK = _os.environ.get("HPM1800_WORK") or _os.path.join(_ROOT, "work")
+_TOOLS = _os.path.join(_ROOT, "tools")
 import json, re, glob, os, collections
 
-MOD = "/home/claude/build/HPM"; W = "/home/claude/work"
+MOD = _BUILD; W = _WORK
 L = json.load(open(f"{W}/world_live.json"))
 SCALE = 0.25
 log = collections.Counter()

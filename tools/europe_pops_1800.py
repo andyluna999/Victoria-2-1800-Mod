@@ -8,9 +8,16 @@ Cultures are not touched -- HPM's 64 European cultures are correct for 1800. Wha
 changes is how many people each polity holds, scaled within its own territory so the
 internal distribution HPM already has is preserved.
 """
+import os as _os
+_ROOT = _os.environ.get("HPM1800_ROOT") or _os.path.dirname(
+    _os.path.dirname(_os.path.abspath(__file__)))
+_SRC = _os.environ.get("HPM1800_SRC") or _os.path.join(_ROOT, "hpm", "HPM - Copy")
+_BUILD = _os.environ.get("HPM1800_BUILD") or _os.path.join(_ROOT, "build", "HPM")
+_WORK = _os.environ.get("HPM1800_WORK") or _os.path.join(_ROOT, "work")
+_TOOLS = _os.path.join(_ROOT, "tools")
 import json, re, glob, os, collections
 
-MOD = "/home/claude/build/HPM"; W = "/home/claude/work"
+MOD = _BUILD; W = _WORK
 L = json.load(open(f"{W}/world_live.json"))
 SCALE = 0.25
 EU = {int(k): v for k, v in L["prov"].items() if v["ct"] == "europe"}

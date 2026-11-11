@@ -1,11 +1,18 @@
 """Deeper sweep than lint.py: cross-file references and value validity."""
+import os as _os
+_ROOT = _os.environ.get("HPM1800_ROOT") or _os.path.dirname(
+    _os.path.dirname(_os.path.abspath(__file__)))
+_SRC = _os.environ.get("HPM1800_SRC") or _os.path.join(_ROOT, "hpm", "HPM - Copy")
+_BUILD = _os.environ.get("HPM1800_BUILD") or _os.path.join(_ROOT, "build", "HPM")
+_WORK = _os.environ.get("HPM1800_WORK") or _os.path.join(_ROOT, "work")
+_TOOLS = _os.path.join(_ROOT, "tools")
 import re, glob, os, csv, collections, json
 import sys
-SRC="/home/claude/hpm/HPM - Copy"
-MOD=os.environ.get("AUDIT_TARGET","/home/claude/build/HPM") if False else None
+SRC=_SRC
+MOD=os.environ.get("AUDIT_TARGET",_BUILD) if False else None
 import os as _os
-MOD=_os.environ.get("AUDIT_TARGET","/home/claude/build/HPM")
-BF="/home/claude/tools/audit_baseline.json"
+MOD=_os.environ.get("AUDIT_TARGET",_BUILD)
+BF=f"{_TOOLS}/audit_baseline.json"
 BASE=json.load(open(BF)) if (os.path.exists(BF) and not _os.environ.get("AUDIT_RECORD")) else {}
 REC={}
 def rd(p): return re.sub(r"#.*","",open(p,encoding="cp1252",errors="replace").read())
@@ -130,10 +137,10 @@ for f in glob.glob(f"{MOD}/localisation/*.csv"):
 # this folder -- Afghanistan has always been named by the game and not by HPM. Only
 # tags our own content creates need a name from us.
 _ours = set()
-for _f in glob.glob("/home/claude/tools/*.py"):
+for _f in glob.glob(f"{_TOOLS}/*.py"):
     _ours |= set(re.findall(r'"([A-Z]{3})"\s*:\s*\(', open(_f).read()))
 _pristine = {os.path.basename(x).split(" - ")[0].strip()
-             for x in glob.glob("/home/claude/hpm/HPM - Copy/history/countries/*.txt")
+             for x in glob.glob(f"{_SRC}/history/countries/*.txt")
              if " - " in os.path.basename(x)}
 missloc=[t for t in sorted(tags)
          if keys.get(t,0)==0 and t not in _pristine]

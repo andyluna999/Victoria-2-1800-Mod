@@ -3,9 +3,16 @@
 Everything is written as cp1252 with LF endings, matching HPM. Nothing is appended
 blindly: existing blocks are rewritten in place so the files stay diffable.
 """
+import os as _os
+_ROOT = _os.environ.get("HPM1800_ROOT") or _os.path.dirname(
+    _os.path.dirname(_os.path.abspath(__file__)))
+_SRC = _os.environ.get("HPM1800_SRC") or _os.path.join(_ROOT, "hpm", "HPM - Copy")
+_BUILD = _os.environ.get("HPM1800_BUILD") or _os.path.join(_ROOT, "build", "HPM")
+_WORK = _os.environ.get("HPM1800_WORK") or _os.path.join(_ROOT, "work")
+_TOOLS = _os.path.join(_ROOT, "tools")
 import json, os, re, glob, collections, shutil
 
-W, MOD = "/home/claude/work", "/home/claude/build/HPM"
+W, MOD = _WORK, _BUILD
 BASE = json.load(open(f"{W}/world_data.json"))
 LAYER = json.load(open("/mnt/user-data/outputs/HPM_NA_1800_cultures_pops.json"))
 PROVVARS = {int(k): v for k, v in LAYER.get("province_vars", {}).items()}

@@ -9,9 +9,16 @@ Americas -- the Mexican mining boom was at its peak and remittances to Madrid ra
 millions a year -- and it was also forbidden to trade with anyone but Spain. Cash rich
 and commercially caged. That needs two mechanisms, not one.
 """
+import os as _os
+_ROOT = _os.environ.get("HPM1800_ROOT") or _os.path.dirname(
+    _os.path.dirname(_os.path.abspath(__file__)))
+_SRC = _os.environ.get("HPM1800_SRC") or _os.path.join(_ROOT, "hpm", "HPM - Copy")
+_BUILD = _os.environ.get("HPM1800_BUILD") or _os.path.join(_ROOT, "build", "HPM")
+_WORK = _os.environ.get("HPM1800_WORK") or _os.path.join(_ROOT, "work")
+_TOOLS = _os.path.join(_ROOT, "tools")
 import os, re, collections
 
-MOD = "/home/claude/build/HPM"
+MOD = _BUILD
 EVENT_ID = 9100000
 
 # Victoria II hands every country an opening treasury of its own, so an event that

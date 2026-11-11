@@ -24,9 +24,16 @@ territory Spain is holding. A Spain that has landed nothing quits in four years,
 is Riego's mutiny. A Spain that has retaken three quarters of Mexico stays fifteen.
 Between those the cliff is deliberate: Madrid digs in only when it is close.
 """
+import os as _os
+_ROOT = _os.environ.get("HPM1800_ROOT") or _os.path.dirname(
+    _os.path.dirname(_os.path.abspath(__file__)))
+_SRC = _os.environ.get("HPM1800_SRC") or _os.path.join(_ROOT, "hpm", "HPM - Copy")
+_BUILD = _os.environ.get("HPM1800_BUILD") or _os.path.join(_ROOT, "build", "HPM")
+_WORK = _os.environ.get("HPM1800_WORK") or _os.path.join(_ROOT, "work")
+_TOOLS = _os.path.join(_ROOT, "tools")
 import os, collections
 
-MOD = "/home/claude/build/HPM"
+MOD = _BUILD
 log = collections.Counter()
 EV, LOC = [], []
 def loc(k, v): LOC.append((k, v))

@@ -7,9 +7,16 @@ will not be founded until 1804. Shaka will not build the Zulu kingdom until afte
 Perth, Adelaide, Melbourne and Brisbane are all founded in the 1830s. And the East
 India Company holds the Doab, which it takes from Sindhia in 1803.
 """
+import os as _os
+_ROOT = _os.environ.get("HPM1800_ROOT") or _os.path.dirname(
+    _os.path.dirname(_os.path.abspath(__file__)))
+_SRC = _os.environ.get("HPM1800_SRC") or _os.path.join(_ROOT, "hpm", "HPM - Copy")
+_BUILD = _os.environ.get("HPM1800_BUILD") or _os.path.join(_ROOT, "build", "HPM")
+_WORK = _os.environ.get("HPM1800_WORK") or _os.path.join(_ROOT, "work")
+_TOOLS = _os.path.join(_ROOT, "tools")
 import json, re, glob, os, collections
 
-MOD = "/home/claude/build/HPM"; W = "/home/claude/work"
+MOD = _BUILD; W = _WORK
 L = json.load(open(f"{W}/world_live.json"))
 NAME = {int(k): v["n"] for k, v in L["prov"].items()}
 log = collections.Counter()

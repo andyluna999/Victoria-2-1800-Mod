@@ -18,9 +18,16 @@ of the river at all -- which is the correct consequence and currently impossible
 The eastern bank is left alone. Those cores predate the Purchase and are not in
 question.
 """
+import os as _os
+_ROOT = _os.environ.get("HPM1800_ROOT") or _os.path.dirname(
+    _os.path.dirname(_os.path.abspath(__file__)))
+_SRC = _os.environ.get("HPM1800_SRC") or _os.path.join(_ROOT, "hpm", "HPM - Copy")
+_BUILD = _os.environ.get("HPM1800_BUILD") or _os.path.join(_ROOT, "build", "HPM")
+_WORK = _os.environ.get("HPM1800_WORK") or _os.path.join(_ROOT, "work")
+_TOOLS = _os.path.join(_ROOT, "tools")
 import re, glob, os, json, collections
 
-MOD = "/home/claude/build/HPM"; W = "/home/claude/work"
+MOD = _BUILD; W = _WORK
 log = collections.Counter()
 def rd(p): return open(p, encoding="cp1252", errors="replace").read()
 def wr(p, t): open(p, "w", encoding="cp1252", errors="replace", newline="\n").write(t)

@@ -20,9 +20,16 @@ back has to use the same justifications anyone else would.
 The date is not arbitrary. Barradas was the last attempt, and after it the Cortes
 stopped voting money for the Americas.
 """
+import os as _os
+_ROOT = _os.environ.get("HPM1800_ROOT") or _os.path.dirname(
+    _os.path.dirname(_os.path.abspath(__file__)))
+_SRC = _os.environ.get("HPM1800_SRC") or _os.path.join(_ROOT, "hpm", "HPM - Copy")
+_BUILD = _os.environ.get("HPM1800_BUILD") or _os.path.join(_ROOT, "build", "HPM")
+_WORK = _os.environ.get("HPM1800_WORK") or _os.path.join(_ROOT, "work")
+_TOOLS = _os.path.join(_ROOT, "tools")
 import re, collections
 
-MOD = "/home/claude/build/HPM"
+MOD = _BUILD
 PATH = f"{MOD}/common/cb_types.txt"
 log = collections.Counter()
 

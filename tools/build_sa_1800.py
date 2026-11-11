@@ -1,9 +1,16 @@
 """South America, 1800. Same method as North America: census-anchored totals, weights
 as shares out of 100, province-level overrides where a region spans cultural zones,
 and iterative proportional fitting so both margins hold."""
+import os as _os
+_ROOT = _os.environ.get("HPM1800_ROOT") or _os.path.dirname(
+    _os.path.dirname(_os.path.abspath(__file__)))
+_SRC = _os.environ.get("HPM1800_SRC") or _os.path.join(_ROOT, "hpm", "HPM - Copy")
+_BUILD = _os.environ.get("HPM1800_BUILD") or _os.path.join(_ROOT, "build", "HPM")
+_WORK = _os.environ.get("HPM1800_WORK") or _os.path.join(_ROOT, "work")
+_TOOLS = _os.path.join(_ROOT, "tools")
 import json, collections
 
-W = "/home/claude/work"
+W = _WORK
 L = json.load(open(f"{W}/world_live.json"))
 ST = {int(k): v for k, v in json.load(open(f"{W}/prov_stats.json")).items()}
 SCALE = 0.25

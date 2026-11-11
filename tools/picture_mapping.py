@@ -10,9 +10,16 @@ gets a battle, a coronation gets a throne, a rising gets a crowd. Where a pictur
 exists for the actual place it is used for the actual place. Where nothing fits, the
 fallback is a period-appropriate generic rather than the clerk.
 """
+import os as _os
+_ROOT = _os.environ.get("HPM1800_ROOT") or _os.path.dirname(
+    _os.path.dirname(_os.path.abspath(__file__)))
+_SRC = _os.environ.get("HPM1800_SRC") or _os.path.join(_ROOT, "hpm", "HPM - Copy")
+_BUILD = _os.environ.get("HPM1800_BUILD") or _os.path.join(_ROOT, "build", "HPM")
+_WORK = _os.environ.get("HPM1800_WORK") or _os.path.join(_ROOT, "work")
+_TOOLS = _os.path.join(_ROOT, "tools")
 import re, glob, os, collections
 
-MOD = "/home/claude/build/HPM"
+MOD = _BUILD
 log = collections.Counter()
 def rd(p): return open(p, encoding="cp1252", errors="replace").read()
 def wr(p, t): open(p, "w", encoding="cp1252", errors="replace", newline="\n").write(t)
@@ -53,7 +60,7 @@ BY_WORD = [
  (("viceroy", "audiencia", "intendanc", "governs", "government dissolves",
    "conspiracy", "suppress", "juntistas", "gallows", "repression"),
   ("asian_administration", "autocracy", "regency")),
- (("consolidacion", "treasury", "remittance", "monopoly", "customs", "tariff",
+ (("consolidacion", "treasury", "remittance", "monopoly", "customs", "tarif",
    "indemnity", "capital", "credit", "mines", "silver", "trade"),
   ("chilean_silver_rush", "bazaar", "stock_crash", "welcome_stranger_nugget")),
  (("militia", "army", "regiment", "garrison", "soldiers", "officers", "corps",

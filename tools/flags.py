@@ -22,10 +22,17 @@ the tribal flags that exist today are twentieth-century designs. Inventing
 pseudo-historical ones would be worse than useless, so these are plain geometric
 devices built from each nation's culture colour -- an identifier, not a claim.
 """
+import os as _os
+_ROOT = _os.environ.get("HPM1800_ROOT") or _os.path.dirname(
+    _os.path.dirname(_os.path.abspath(__file__)))
+_SRC = _os.environ.get("HPM1800_SRC") or _os.path.join(_ROOT, "hpm", "HPM - Copy")
+_BUILD = _os.environ.get("HPM1800_BUILD") or _os.path.join(_ROOT, "build", "HPM")
+_WORK = _os.environ.get("HPM1800_WORK") or _os.path.join(_ROOT, "work")
+_TOOLS = _os.path.join(_ROOT, "tools")
 import os, math, collections
 from PIL import Image, ImageDraw
 
-MOD = "/home/claude/build/HPM"
+MOD = _BUILD
 W, H = 93, 64
 log = collections.Counter()
 
@@ -259,7 +266,7 @@ for i, (tag, col) in enumerate(sorted(NATIVE.items())):
 # --- write them out ---------------------------------------------------------------------
 GOV = ("", "_communist", "_fascist", "_monarchy", "_republic")
 
-SRC_FLAGS = "/home/claude/hpm/HPM - Copy/gfx/flags"
+SRC_FLAGS = f"{_SRC}/gfx/flags"
 for _dst, _src in HPM_COPY.items():
     for _g in GOV:
         _f = os.path.join(SRC_FLAGS, f"{_src}{_g}.tga")

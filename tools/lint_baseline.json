@@ -1,0 +1,15 @@
+{
+ "no UTF-8 BOM anywhere": "[]",
+ "no CRLF line endings": "['issues.txt', 'event_modifiers.txt']",
+ "braces balanced in every file": "[]",
+ "no duplicate culture definitions": "[]",
+ "culture count": "250",
+ "every pop culture is defined": "[]",
+ "every tag has a country definition file": "['BAB', 'REB']",
+ "every primary_culture resolves": "[]",
+ "every country has a party valid at 1836": "[]",
+ "every pop province exists on the map": "[]",
+ "no duplicate event ids": "0 duplicated, e.g. []",
+ "pops folder matches the start date": "['1836.1.1', '1861.4.14']",
+ "bookmark matches the start date": ""
+}

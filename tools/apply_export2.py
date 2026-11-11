@@ -4,8 +4,15 @@ The export unowns the Saharan interior and gives Cyrenaica to the Karamanlis, bo
 correct. It also adds a Karamanli core to every province in Australia and New Zealand,
 which is a box-select that caught the wrong continent. Those 35 are skipped.
 """
+import os as _os
+_ROOT = _os.environ.get("HPM1800_ROOT") or _os.path.dirname(
+    _os.path.dirname(_os.path.abspath(__file__)))
+_SRC = _os.environ.get("HPM1800_SRC") or _os.path.join(_ROOT, "hpm", "HPM - Copy")
+_BUILD = _os.environ.get("HPM1800_BUILD") or _os.path.join(_ROOT, "build", "HPM")
+_WORK = _os.environ.get("HPM1800_WORK") or _os.path.join(_ROOT, "work")
+_TOOLS = _os.path.join(_ROOT, "tools")
 import json, re, glob, os, collections
-MOD = "/home/claude/build/HPM"; W = "/home/claude/work"
+MOD = _BUILD; W = _WORK
 E = json.load(open("/mnt/user-data/uploads/hpm_world_1800_1.json"))
 L = json.load(open(f"{W}/world_live.json"))
 P = L["prov"]   # used only for the continent of each province, never for its state

@@ -22,9 +22,16 @@ taking the nations whose land that step covered:
 Each is a decision rather than an event, so a player of the United States owns it, and
 each carries real infamy. They are not free and they are not quiet.
 """
+import os as _os
+_ROOT = _os.environ.get("HPM1800_ROOT") or _os.path.dirname(
+    _os.path.dirname(_os.path.abspath(__file__)))
+_SRC = _os.environ.get("HPM1800_SRC") or _os.path.join(_ROOT, "hpm", "HPM - Copy")
+_BUILD = _os.environ.get("HPM1800_BUILD") or _os.path.join(_ROOT, "build", "HPM")
+_WORK = _os.environ.get("HPM1800_WORK") or _os.path.join(_ROOT, "work")
+_TOOLS = _os.path.join(_ROOT, "tools")
 import re, glob, os, collections, json
 
-MOD = "/home/claude/build/HPM"
+MOD = _BUILD
 log = collections.Counter()
 DEC, LOC = [], []
 def loc(k, v): LOC.append((k, v))
@@ -32,7 +39,7 @@ def wr(p, t):
     os.makedirs(os.path.dirname(p), exist_ok=True)
     open(p, "w", encoding="cp1252", errors="replace", newline="\n").write(t)
 
-P = {int(k): v for k, v in json.load(open("/home/claude/work/world_live.json"))["prov"].items()}
+P = {int(k): v for k, v in json.load(open(f"{_WORK}/world_live.json"))["prov"].items()}
 HOLDS = collections.defaultdict(list)
 for pid, v in P.items():
     if v["o"]: HOLDS[v["o"]].append(pid)

@@ -22,9 +22,16 @@ War goals are modest on purpose. Victoria II resolves history wars immediately o
 load if the goals are achievable, and the point here is to begin mid-war rather than
 to script the outcome.
 """
+import os as _os
+_ROOT = _os.environ.get("HPM1800_ROOT") or _os.path.dirname(
+    _os.path.dirname(_os.path.abspath(__file__)))
+_SRC = _os.environ.get("HPM1800_SRC") or _os.path.join(_ROOT, "hpm", "HPM - Copy")
+_BUILD = _os.environ.get("HPM1800_BUILD") or _os.path.join(_ROOT, "build", "HPM")
+_WORK = _os.environ.get("HPM1800_WORK") or _os.path.join(_ROOT, "work")
+_TOOLS = _os.path.join(_ROOT, "tools")
 import os, collections
 
-MOD = "/home/claude/build/HPM"
+MOD = _BUILD
 log = collections.Counter()
 def wr(p, t):
     os.makedirs(os.path.dirname(p), exist_ok=True)

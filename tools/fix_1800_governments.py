@@ -4,8 +4,15 @@ Several are still HPM's 1836 settings, which describe a world that has not happe
 France as the July Monarchy, the Netherlands as the Kingdom under Willem I, Spain and
 Sweden as constitutional monarchies, Portugal under a liberal ministry.
 """
+import os as _os
+_ROOT = _os.environ.get("HPM1800_ROOT") or _os.path.dirname(
+    _os.path.dirname(_os.path.abspath(__file__)))
+_SRC = _os.environ.get("HPM1800_SRC") or _os.path.join(_ROOT, "hpm", "HPM - Copy")
+_BUILD = _os.environ.get("HPM1800_BUILD") or _os.path.join(_ROOT, "build", "HPM")
+_WORK = _os.environ.get("HPM1800_WORK") or _os.path.join(_ROOT, "work")
+_TOOLS = _os.path.join(_ROOT, "tools")
 import re, glob
-MOD="/home/claude/build/HPM"
+MOD=_BUILD
 # ruling party on the start date. The sister republics are liberal because that is
 # what they were; Portugal is conservative because the liberal ministries are decades off.
 PARTY={"FRA":"FRA_liberal","NET":"HOL_liberal","SWI":"SWI_liberal","LIG":"LIG_liberal",

@@ -21,9 +21,16 @@ junta ended at two in the morning with three hundred armed men in the palace.
 decision did better than an event and it is worth keeping: a viceroy who is not ready
 to answer should be able to not answer, and live with what that costs.
 """
+import os as _os
+_ROOT = _os.environ.get("HPM1800_ROOT") or _os.path.dirname(
+    _os.path.dirname(_os.path.abspath(__file__)))
+_SRC = _os.environ.get("HPM1800_SRC") or _os.path.join(_ROOT, "hpm", "HPM - Copy")
+_BUILD = _os.environ.get("HPM1800_BUILD") or _os.path.join(_ROOT, "build", "HPM")
+_WORK = _os.environ.get("HPM1800_WORK") or _os.path.join(_ROOT, "work")
+_TOOLS = _os.path.join(_ROOT, "tools")
 import os, collections
 
-MOD = "/home/claude/build/HPM"
+MOD = _BUILD
 log = collections.Counter()
 EV, LOC = [], []
 def loc(k, v): LOC.append((k, v))

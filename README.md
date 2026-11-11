@@ -37,14 +37,26 @@ The Portuguese court's flight to Rio and the Empire that came out of it. The Con
 Tucumán, San Martín's crossing of the Andes, and Bouchard taking Monterey under the flag
 of a country four years old.
 
+## Playing it
+
+You do not need any of this to play. Download the patch from
+[Releases](https://github.com/andyluna999/Victoria-2-1800-Mod/releases), extract it
+over a clean install of HPM, and start a new game. Full instructions, including what
+to do when it goes wrong, are in [docs/INSTALLING.md](docs/INSTALLING.md).
+
 ## Building
 
-The mod is generated, not hand-edited. `tools/make.sh` runs 116 passes over a pristine
-copy of HPM and produces the build:
+The mod is generated, not hand-edited. Put an unmodified copy of HPM at
+`hpm/HPM - Copy`, then:
 
 ```sh
 bash tools/make.sh
 ```
+
+117 passes run over the pristine copy and write a complete mod to `build/HPM`. The
+source is never modified. `data/` holds derived tables — the province index, the 1836
+pop census, the colour map — that were produced once from HPM's own files and its map
+images; the build copies them into `work/` on a fresh checkout.
 
 Each pass is a single Python file that does one thing and explains why in its docstring.
 The build is deterministic: running it twice produces byte-identical output.

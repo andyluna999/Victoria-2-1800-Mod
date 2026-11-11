@@ -15,9 +15,16 @@ Comanche were perhaps twenty thousand people and fielded a few thousand warriors
 that is what made them formidable on the southern plains and doomed against a
 continental state.
 """
+import os as _os
+_ROOT = _os.environ.get("HPM1800_ROOT") or _os.path.dirname(
+    _os.path.dirname(_os.path.abspath(__file__)))
+_SRC = _os.environ.get("HPM1800_SRC") or _os.path.join(_ROOT, "hpm", "HPM - Copy")
+_BUILD = _os.environ.get("HPM1800_BUILD") or _os.path.join(_ROOT, "build", "HPM")
+_WORK = _os.environ.get("HPM1800_WORK") or _os.path.join(_ROOT, "work")
+_TOOLS = _os.path.join(_ROOT, "tools")
 import re, glob, os, collections
 
-MOD = "/home/claude/build/HPM"
+MOD = _BUILD
 PER = 260          # soldier pop units behind one war party, at our 0.25 scale
 MAXBANDS = 8
 log = collections.Counter()

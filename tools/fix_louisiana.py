@@ -5,9 +5,16 @@ then the United States without ever being Mexican. New Mexico, Texas, Arizona, t
 Californias and the Great Basin keep their Mexican cores, because those did become
 Mexico. Runs on the split export, before it is compiled.
 """
+import os as _os
+_ROOT = _os.environ.get("HPM1800_ROOT") or _os.path.dirname(
+    _os.path.dirname(_os.path.abspath(__file__)))
+_SRC = _os.environ.get("HPM1800_SRC") or _os.path.join(_ROOT, "hpm", "HPM - Copy")
+_BUILD = _os.environ.get("HPM1800_BUILD") or _os.path.join(_ROOT, "build", "HPM")
+_WORK = _os.environ.get("HPM1800_WORK") or _os.path.join(_ROOT, "work")
+_TOOLS = _os.path.join(_ROOT, "tools")
 import json
-W=json.load(open("/home/claude/work/world_data.json"))["prov"]
-F="/home/claude/work/export_split.json"
+W=json.load(open(f"{_WORK}/world_data.json"))["prov"]
+F=f"{_WORK}/export_split.json"
 d=json.load(open(F)); P=d["provinces"]
 LOUISIANA={"USA_139","USA_148","USA_144","USA_151","USA_124","USA_126","USA_121",
            "USA_118","USA_158","USA_129","USA_116","USA_111","USA_194","USA_196","USA_200"}

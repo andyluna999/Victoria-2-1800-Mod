@@ -16,9 +16,16 @@ The existing orders of battle are 1836 peacetime establishments. The powers at w
 the start date are scaled to a war footing, because France in 1800 had something like
 four hundred thousand men under arms and the file gave it sixty-four regiments.
 """
+import os as _os
+_ROOT = _os.environ.get("HPM1800_ROOT") or _os.path.dirname(
+    _os.path.dirname(_os.path.abspath(__file__)))
+_SRC = _os.environ.get("HPM1800_SRC") or _os.path.join(_ROOT, "hpm", "HPM - Copy")
+_BUILD = _os.environ.get("HPM1800_BUILD") or _os.path.join(_ROOT, "build", "HPM")
+_WORK = _os.environ.get("HPM1800_WORK") or _os.path.join(_ROOT, "work")
+_TOOLS = _os.path.join(_ROOT, "tools")
 import json, re, glob, os, sys, collections
 
-MOD = "/home/claude/build/HPM"; W = "/home/claude/work"
+MOD = _BUILD; W = _WORK
 L = json.load(open(f"{W}/world_live.json"))
 P = {int(k): v for k, v in L["prov"].items()}
 log = collections.Counter()
@@ -29,7 +36,7 @@ def wr(p, t):
 
 # ownership from the mod, never from world_live.json: that file is written after the
 # build, so reading it here means acting on the previous run's map
-sys.path.insert(0, "/home/claude/tools")
+sys.path.insert(0, _TOOLS)
 from livestate import province_state, population
 OWNER, _CTRL, _CORES, _PATH = province_state()
 owned = collections.defaultdict(list)

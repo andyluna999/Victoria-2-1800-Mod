@@ -20,9 +20,16 @@ horse, it is simply described in a vocabulary the engine will accept in 1800. Wh
 country lacks even flintlocks -- several of the non-European states do -- its infantry
 becomes irregulars, which is accurate rather than a demotion.
 """
+import os as _os
+_ROOT = _os.environ.get("HPM1800_ROOT") or _os.path.dirname(
+    _os.path.dirname(_os.path.abspath(__file__)))
+_SRC = _os.environ.get("HPM1800_SRC") or _os.path.join(_ROOT, "hpm", "HPM - Copy")
+_BUILD = _os.environ.get("HPM1800_BUILD") or _os.path.join(_ROOT, "build", "HPM")
+_WORK = _os.environ.get("HPM1800_WORK") or _os.path.join(_ROOT, "work")
+_TOOLS = _os.path.join(_ROOT, "tools")
 import re, glob, os, collections
 
-MOD = "/home/claude/build/HPM"
+MOD = _BUILD
 log = collections.Counter()
 def rd(p): return open(p, encoding="cp1252", errors="replace").read()
 def wr(p, t): open(p, "w", encoding="cp1252", errors="replace", newline="\n").write(t)

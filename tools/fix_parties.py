@@ -1,11 +1,18 @@
 """WP-12. A country whose parties all begin after the start date has no ruling party
 and therefore no government. 281 of 546 HPM country files are in that state at 1800."""
+import os as _os
+_ROOT = _os.environ.get("HPM1800_ROOT") or _os.path.dirname(
+    _os.path.dirname(_os.path.abspath(__file__)))
+_SRC = _os.environ.get("HPM1800_SRC") or _os.path.join(_ROOT, "hpm", "HPM - Copy")
+_BUILD = _os.environ.get("HPM1800_BUILD") or _os.path.join(_ROOT, "build", "HPM")
+_WORK = _os.environ.get("HPM1800_WORK") or _os.path.join(_ROOT, "work")
+_TOOLS = _os.path.join(_ROOT, "tools")
 # A party whose start_date equals the game's start date is not yet active on day one:
 # Victoria II wants it to have begun strictly earlier. Dating 1,523 parties to
 # 1800.1.1 left 448 countries, France among them, with a ruling party the game would
 # not recognise and therefore no ideology at all. They start the year before.
 import re, glob, os
-MOD="/home/claude/build/HPM"; START=1800
+MOD=_BUILD; START=1800
 fixed=cnt=0; clamped=[]
 for f in glob.glob(f"{MOD}/common/countries/*.txt"):
     s=open(f,encoding="cp1252",errors="replace").read()
@@ -40,7 +47,7 @@ print(f"  countries still with no party at {START}: {len(bad)} {bad[:5]}")
 # been dropped. Victoria II wants the ruling party to have begun strictly before the
 # current date, so they are dated to the year before the start.
 import glob as _glob, os as _os, re as _re
-_MOD = MOD if "MOD" in dir() else "/home/claude/build/HPM"
+_MOD = MOD if "MOD" in dir() else _BUILD
 _ruling = {}
 for _f in _glob.glob(f"{_MOD}/history/countries/*.txt"):
     _b = _os.path.basename(_f)

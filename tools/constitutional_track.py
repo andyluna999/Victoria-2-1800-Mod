@@ -33,9 +33,16 @@ constitutional colony is visibly a different kind of state from an absolutist on
 The loyalty ledger: each colony carries `loyalty_credit`, raised by accepting an offer
 and destroyed by a revocation. Section 8 of the plan keys the regency chain to it.
 """
+import os as _os
+_ROOT = _os.environ.get("HPM1800_ROOT") or _os.path.dirname(
+    _os.path.dirname(_os.path.abspath(__file__)))
+_SRC = _os.environ.get("HPM1800_SRC") or _os.path.join(_ROOT, "hpm", "HPM - Copy")
+_BUILD = _os.environ.get("HPM1800_BUILD") or _os.path.join(_ROOT, "build", "HPM")
+_WORK = _os.environ.get("HPM1800_WORK") or _os.path.join(_ROOT, "work")
+_TOOLS = _os.path.join(_ROOT, "tools")
 import os, collections
 
-MOD = "/home/claude/build/HPM"
+MOD = _BUILD
 log = collections.Counter()
 # Event ids live in 9100800-9100599. The first draft used 9100400, which collides with
 # the Porte events; the lint caught it, which is the whole point of the lint.

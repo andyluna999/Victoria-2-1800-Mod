@@ -1,9 +1,16 @@
 """A sweep aimed at what we changed, rather than at HPM in general."""
+import os as _os
+_ROOT = _os.environ.get("HPM1800_ROOT") or _os.path.dirname(
+    _os.path.dirname(_os.path.abspath(__file__)))
+_SRC = _os.environ.get("HPM1800_SRC") or _os.path.join(_ROOT, "hpm", "HPM - Copy")
+_BUILD = _os.environ.get("HPM1800_BUILD") or _os.path.join(_ROOT, "build", "HPM")
+_WORK = _os.environ.get("HPM1800_WORK") or _os.path.join(_ROOT, "work")
+_TOOLS = _os.path.join(_ROOT, "tools")
 import re, glob, os, json, csv, collections
 
-SRC = "/home/claude/hpm/HPM - Copy"
-MOD = os.environ.get("SWEEP_TARGET", "/home/claude/build/HPM")
-BF = "/home/claude/tools/sweep_baseline.json"
+SRC = _SRC
+MOD = os.environ.get("SWEEP_TARGET", _BUILD)
+BF = f"{_TOOLS}/sweep_baseline.json"
 BASE_FIND = json.load(open(BF)) if (os.path.exists(BF) and not os.environ.get("SWEEP_RECORD")) else {}
 REC = {}
 def rd(p): return re.sub(r"#.*", "", open(p, encoding="cp1252", errors="replace").read())
@@ -172,7 +179,7 @@ chk("every overlord active at the start holds land",
 # A script that reads current state from world_live.json rather than from the file it
 # is editing will silently skip its own writes on a rebuild, because world_live.json is
 # regenerated after the build. That is how Britain kept 37 Australian provinces.
-INTENT = "/home/claude/work/export_intent.json"
+INTENT = f"{_WORK}/export_intent.json"
 # apply_export2 now runs immediately after the export is compiled and verifies its own
 # writes before the historical passes that follow it. Those passes deliberately
 # override it -- Spain's claim on Fernando Po is not in the export -- so this checks
@@ -243,7 +250,7 @@ chk("a province is only seceded by the country that owns it", not wrongscope,
 # from current state must read the mod; tools/livestate.py does that.
 OWN_KEYS = ('["o"]', "['o']", '["c"]', "['c']", '["cr"]', "['cr']")
 offenders = []
-for _f in sorted(glob.glob("/home/claude/tools/*.py")):
+for _f in sorted(glob.glob(f"{_TOOLS}/*.py")):
     _nm = os.path.basename(_f)
     # read-only tools are exempt: they report, they never write into the mod
     if _nm in ("build_live_data.py", "demographic_audit.py", "sweep.py",

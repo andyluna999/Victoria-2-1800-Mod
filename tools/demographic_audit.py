@@ -8,9 +8,16 @@ people filed under a catch-all culture, a settler population sized for the later
 and a distribution following settlement that has not happened yet. Each check below
 targets one of those.
 """
+import os as _os
+_ROOT = _os.environ.get("HPM1800_ROOT") or _os.path.dirname(
+    _os.path.dirname(_os.path.abspath(__file__)))
+_SRC = _os.environ.get("HPM1800_SRC") or _os.path.join(_ROOT, "hpm", "HPM - Copy")
+_BUILD = _os.environ.get("HPM1800_BUILD") or _os.path.join(_ROOT, "build", "HPM")
+_WORK = _os.environ.get("HPM1800_WORK") or _os.path.join(_ROOT, "work")
+_TOOLS = _os.path.join(_ROOT, "tools")
 import json, collections, sys, os
 
-W = "/home/claude/work"
+W = _WORK
 L = json.load(open(f"{W}/world_live.json"))
 P = {int(k): v for k, v in L["prov"].items()}
 C, CU = L["countries"], L["cultures"]

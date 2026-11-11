@@ -15,9 +15,16 @@ The repair is the idiom the engine actually wants: drop `fire_only_once`, have t
 event set a flag of its own, and have its trigger exclude countries that already
 carry it. That is once per country, which is what every one of these meant.
 """
+import os as _os
+_ROOT = _os.environ.get("HPM1800_ROOT") or _os.path.dirname(
+    _os.path.dirname(_os.path.abspath(__file__)))
+_SRC = _os.environ.get("HPM1800_SRC") or _os.path.join(_ROOT, "hpm", "HPM - Copy")
+_BUILD = _os.environ.get("HPM1800_BUILD") or _os.path.join(_ROOT, "build", "HPM")
+_WORK = _os.environ.get("HPM1800_WORK") or _os.path.join(_ROOT, "work")
+_TOOLS = _os.path.join(_ROOT, "tools")
 import re, glob, os, collections
 
-MOD = "/home/claude/build/HPM"
+MOD = _BUILD
 log = collections.Counter()
 def rd(p): return open(p, encoding="cp1252", errors="replace").read()
 def wr(p, t): open(p, "w", encoding="cp1252", errors="replace", newline="\n").write(t)

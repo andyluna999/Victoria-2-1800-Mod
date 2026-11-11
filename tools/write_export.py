@@ -3,12 +3,19 @@
 Runs after write_world.py. The export is the source of truth for everything it
 carries; write_world.py's own colonial tags are dropped if the map does not use them.
 """
+import os as _os
+_ROOT = _os.environ.get("HPM1800_ROOT") or _os.path.dirname(
+    _os.path.dirname(_os.path.abspath(__file__)))
+_SRC = _os.environ.get("HPM1800_SRC") or _os.path.join(_ROOT, "hpm", "HPM - Copy")
+_BUILD = _os.environ.get("HPM1800_BUILD") or _os.path.join(_ROOT, "build", "HPM")
+_WORK = _os.environ.get("HPM1800_WORK") or _os.path.join(_ROOT, "work")
+_TOOLS = _os.path.join(_ROOT, "tools")
 import json, os, re, glob, collections, shutil
 from PIL import Image
 
-MOD = "/home/claude/build/HPM"
-EXP = json.load(open("/home/claude/work/export_split.json"))
-BASE = json.load(open("/home/claude/work/world_data.json"))
+MOD = _BUILD
+EXP = json.load(open(f"{_WORK}/export_split.json"))
+BASE = json.load(open(f"{_WORK}/world_data.json"))
 START = "1800.1.1"
 P, C, POPS = EXP["provinces"], EXP["countries"], EXP["pops"]
 log = collections.Counter()
@@ -194,7 +201,7 @@ for tag, c in C.items():
 # tracks "is colonial" as a boolean, so a straight write collapsed 550 level-2 colonies
 # to level 1. Recover the level from pristine HPM wherever the flag is still set.
 ORIG_COL = {}
-for f in glob.glob("/home/claude/hpm/HPM - Copy/history/provinces/*/*.txt"):
+for f in glob.glob(f"{_SRC}/history/provinces/*/*.txt"):
     m = re.match(r"(\d+)", os.path.basename(f))
     if not m: continue
     mm = re.search(r"^\s*colonial\s*=\s*(\d+)",
@@ -270,7 +277,7 @@ for tag, c in sorted(C.items()):
 w(f"{MOD}/history/diplomacy/1800_colonial_rule.txt", "\n".join(lines))
 # the successor and post-independence cultures have no home in a Victoria II file yet
 # -- they drive events we have not written -- so they travel alongside the mod
-json.dump(meta, open("/home/claude/work/world_meta.json", "w"))
+json.dump(meta, open(f"{_WORK}/world_meta.json", "w"))
 log["successor records"] = len(meta)
 
 # ------------------------------------------------------------------ localisation

@@ -1,3 +1,10 @@
+import os as _os
+_ROOT = _os.environ.get("HPM1800_ROOT") or _os.path.dirname(
+    _os.path.dirname(_os.path.abspath(__file__)))
+_SRC = _os.environ.get("HPM1800_SRC") or _os.path.join(_ROOT, "hpm", "HPM - Copy")
+_BUILD = _os.environ.get("HPM1800_BUILD") or _os.path.join(_ROOT, "build", "HPM")
+_WORK = _os.environ.get("HPM1800_WORK") or _os.path.join(_ROOT, "work")
+_TOOLS = _os.path.join(_ROOT, "tools")
 # `acquire_all_cores` carries truce_months = 48 and takes twelve months to construct,
 # so a republic that wins a white peace waits four years before it can move again --
 # and the wars of independence were not fought at that tempo. Mexico fought Spain
@@ -53,7 +60,7 @@ reclaim_the_republic = {
 }
 """
 import os
-MOD="/home/claude/build/HPM"
+MOD=_BUILD
 p=f"{MOD}/common/cb_types.txt"
 s=open(p,encoding='cp1252',errors='replace').read()
 if "\nreclaim_the_republic = {" not in s:

@@ -1,10 +1,36 @@
 #!/bin/bash
 # Reproducible build: always start from a pristine HPM, then apply every tool in order.
 set -e
-SRC="/home/claude/hpm/HPM - Copy"
-DST="/home/claude/build/HPM"
-rm -rf "$DST"; mkdir -p /home/claude/build; cp -r "$SRC" "$DST"
-cd /home/claude
+# Run from anywhere: the root is wherever this script's parent directory is,
+# unless HPM1800_ROOT says otherwise.
+ROOT="${HPM1800_ROOT:-$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)}"
+SRC="${HPM1800_SRC:-$ROOT/hpm/HPM - Copy}"
+DST="${HPM1800_BUILD:-$ROOT/build/HPM}"
+WORK="${HPM1800_WORK:-$ROOT/work}"
+export HPM1800_ROOT HPM1800_SRC HPM1800_BUILD HPM1800_WORK
+
+if [ ! -d "$SRC" ]; then
+  echo "No pristine HPM found at: $SRC"
+  echo "Put an unmodified copy of the Historical Project Mod there, or set HPM1800_SRC."
+  exit 1
+fi
+
+cd "$ROOT"
+mkdir -p "$WORK"
+
+# The build reads a set of derived data files -- province tables, the 1836 pop
+# census, the colour index of the map -- that were produced once from HPM's own
+# files and its map images. Regenerating them needs the image pipeline; they ship
+# in data/ instead, and are copied into work/ on a fresh checkout.
+for f in "$ROOT"/data/*.json; do
+  [ -e "$f" ] || continue
+  b="$(basename "$f")"
+  [ -e "$WORK/$b" ] || cp "$f" "$WORK/$b"
+done
+rm -rf "$DST"; mkdir -p "$(dirname "$DST")"; cp -r "$SRC" "$DST"
+cd "$ROOT"
+# culture_names.json is generated rather than shipped, from tools/names_source.json
+python3 tools/build_names.py
 python3 tools/write_world.py
 python3 tools/fix_parties.py
 python3 tools/strip_1861.py

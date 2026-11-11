@@ -4,9 +4,16 @@ on both sides rather than flavour text.
 Each one is a thing that actually happened, where the other branch was live at the time
 and the people involved argued about it. None of them is a free choice.
 """
+import os as _os
+_ROOT = _os.environ.get("HPM1800_ROOT") or _os.path.dirname(
+    _os.path.dirname(_os.path.abspath(__file__)))
+_SRC = _os.environ.get("HPM1800_SRC") or _os.path.join(_ROOT, "hpm", "HPM - Copy")
+_BUILD = _os.environ.get("HPM1800_BUILD") or _os.path.join(_ROOT, "build", "HPM")
+_WORK = _os.environ.get("HPM1800_WORK") or _os.path.join(_ROOT, "work")
+_TOOLS = _os.path.join(_ROOT, "tools")
 import os
 
-MOD = "/home/claude/build/HPM"
+MOD = _BUILD
 EV, DEC, LOC, MOD_DEFS = [], [], [], []
 BASE = 9100200
 

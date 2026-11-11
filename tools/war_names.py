@@ -4,8 +4,15 @@ Victoria II builds a war's name from its casus belli, so using `civil_war` gave 
 "the New Spanish Civil War" for the Grito de Dolores. This casus belli is the same
 one in every mechanical respect and differs only in what the war is called.
 """
+import os as _os
+_ROOT = _os.environ.get("HPM1800_ROOT") or _os.path.dirname(
+    _os.path.dirname(_os.path.abspath(__file__)))
+_SRC = _os.environ.get("HPM1800_SRC") or _os.path.join(_ROOT, "hpm", "HPM - Copy")
+_BUILD = _os.environ.get("HPM1800_BUILD") or _os.path.join(_ROOT, "build", "HPM")
+_WORK = _os.environ.get("HPM1800_WORK") or _os.path.join(_ROOT, "work")
+_TOOLS = _os.path.join(_ROOT, "tools")
 import re
-MOD="/home/claude/build/HPM"
+MOD=_BUILD
 path=f"{MOD}/common/cb_types.txt"
 s=open(path,encoding='cp1252',errors='replace').read()
 # rewrite our casus belli to mirror civil_war exactly, differing only in its name

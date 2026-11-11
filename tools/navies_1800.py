@@ -18,9 +18,16 @@ the 1840s -- but the unit is Victoria II's generic sailing transport and there i
 nothing better to map it to, and the eight countries that hold `clipper_design` after
 the technology rollback are exactly the eight that could keep a transport fleet at sea.
 """
+import os as _os
+_ROOT = _os.environ.get("HPM1800_ROOT") or _os.path.dirname(
+    _os.path.dirname(_os.path.abspath(__file__)))
+_SRC = _os.environ.get("HPM1800_SRC") or _os.path.join(_ROOT, "hpm", "HPM - Copy")
+_BUILD = _os.environ.get("HPM1800_BUILD") or _os.path.join(_ROOT, "build", "HPM")
+_WORK = _os.environ.get("HPM1800_WORK") or _os.path.join(_ROOT, "work")
+_TOOLS = _os.path.join(_ROOT, "tools")
 import re, glob, os, collections
 
-MOD = "/home/claude/build/HPM"
+MOD = _BUILD
 log = collections.Counter()
 def rd(p): return open(p, encoding="cp1252", errors="replace").read()
 def wr(p, t): open(p, "w", encoding="cp1252", errors="replace", newline="\n").write(t)

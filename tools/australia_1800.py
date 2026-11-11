@@ -19,9 +19,16 @@ Carrying capacity, not charters: the Murray-Darling, the eastern seaboard, Arnhe
 Cape York and the southwest corner carried dense populations; the Western Desert,
 Nullarbor, Simpson and Tanami carried almost nobody.
 """
+import os as _os
+_ROOT = _os.environ.get("HPM1800_ROOT") or _os.path.dirname(
+    _os.path.dirname(_os.path.abspath(__file__)))
+_SRC = _os.environ.get("HPM1800_SRC") or _os.path.join(_ROOT, "hpm", "HPM - Copy")
+_BUILD = _os.environ.get("HPM1800_BUILD") or _os.path.join(_ROOT, "build", "HPM")
+_WORK = _os.environ.get("HPM1800_WORK") or _os.path.join(_ROOT, "work")
+_TOOLS = _os.path.join(_ROOT, "tools")
 import json, re, glob, os, collections
 
-MOD = "/home/claude/build/HPM"; W = "/home/claude/work"
+MOD = _BUILD; W = _WORK
 L = json.load(open(f"{W}/world_live.json"))
 SCALE = 0.25
 NAME = {int(k): v["n"] for k, v in L["prov"].items()}

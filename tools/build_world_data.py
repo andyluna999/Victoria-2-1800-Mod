@@ -1,7 +1,14 @@
+import os as _os
+_ROOT = _os.environ.get("HPM1800_ROOT") or _os.path.dirname(
+    _os.path.dirname(_os.path.abspath(__file__)))
+_SRC = _os.environ.get("HPM1800_SRC") or _os.path.join(_ROOT, "hpm", "HPM - Copy")
+_BUILD = _os.environ.get("HPM1800_BUILD") or _os.path.join(_ROOT, "build", "HPM")
+_WORK = _os.environ.get("HPM1800_WORK") or _os.path.join(_ROOT, "work")
+_TOOLS = _os.path.join(_ROOT, "tools")
 import numpy as np, json, re, os, glob, base64, io, collections
 from PIL import Image
 Image.MAX_IMAGE_PIXELS = None
-MOD = "/home/claude/hpm/HPM - Copy"; W = "/home/claude/work"
+MOD = _SRC; W = _WORK
 
 meta = json.load(open(f"{W}/pops_1836.json"))
 stats = {int(k): v for k, v in json.load(open(f"{W}/prov_stats.json")).items()}

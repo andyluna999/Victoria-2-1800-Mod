@@ -12,9 +12,16 @@ foreign cannot reinforce. Both are fixed here.
 Formations belonging to a country that holds nothing at all are removed outright,
 keeping the file so the tag still has somewhere to put an army later.
 """
+import os as _os
+_ROOT = _os.environ.get("HPM1800_ROOT") or _os.path.dirname(
+    _os.path.dirname(_os.path.abspath(__file__)))
+_SRC = _os.environ.get("HPM1800_SRC") or _os.path.join(_ROOT, "hpm", "HPM - Copy")
+_BUILD = _os.environ.get("HPM1800_BUILD") or _os.path.join(_ROOT, "build", "HPM")
+_WORK = _os.environ.get("HPM1800_WORK") or _os.path.join(_ROOT, "work")
+_TOOLS = _os.path.join(_ROOT, "tools")
 import json, re, glob, os, sys, collections, math
 
-MOD = "/home/claude/build/HPM"; W = "/home/claude/work"
+MOD = _BUILD; W = _WORK
 L = json.load(open(f"{W}/world_live.json"))
 P = {int(k): v for k, v in L["prov"].items()}
 ST = {int(k): v for k, v in json.load(open(f"{W}/prov_stats.json")).items()}
@@ -25,7 +32,7 @@ def wr(p, t): open(p, "w", encoding="cp1252", errors="replace", newline="\n").wr
 
 # ownership from the mod, never from world_live.json: that file is written after the
 # build, so reading it here means acting on the previous run's map
-sys.path.insert(0, "/home/claude/tools")
+sys.path.insert(0, _TOOLS)
 from livestate import province_state, population
 OWNER, _CTRL, _CORES, _PATH = province_state()
 SPAWNS_LATER = {"MEX", "CLM", "ARG", "CHL", "PEU", "VNZ", "ECU", "BOL", "URU", "PRG",

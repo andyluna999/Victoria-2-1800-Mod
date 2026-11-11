@@ -1,0 +1,20 @@
+{
+ "every owner/controller/core tag is registered": "[]",
+ "every trade good exists": "[]",
+ "no sea province has an owner": "[]",
+ "colonial level 2 not downgraded": "0 provinces lost level 2, e.g. []",
+ "every government type exists": "[]",
+ "every state religion exists": "[]",
+ "every national value exists": "[]",
+ "every capital is a real province": "[]",
+ "ruling_party is defined in the country file": "[('BLC', 'KAL_conservative'), ('CMS', 'BUG_conservative'), ('GHN', 'ASH2_conservative')]",
+ "primary culture is not also listed as accepted": "[]",
+ "every graphical_culture is known": "[('Ethiopia.txt', 'AfricanGC'), ('North German Fed.txt', 'PrussianGC'), ('Finland.txt', 'EuropeanGC'), ('Uyghurstan.txt', 'MiddleEasternGC'), ('Abu Dhabi.txt', 'MiddleEasternGC'), ('Gwailor.txt', 'IndianGC')]",
+ "every tag has a base flag": "['ALB', 'ALD', 'ANH', 'AWA', 'BAB', 'BAD', 'BAL', 'BAS']",
+ "no province is defined in two pop files": "[(1852, ['Ethiopia.txt', 'Ethiopia.txt']), (1853, ['Ethiopia.txt', 'Ethiopia.txt']), (1854, ['Ethiopia.txt', 'Ethiopia.txt'])]",
+ "every pop type is valid": "[]",
+ "every pop religion exists": "[]",
+ "no zero-size pops": "0",
+ "every owned land province has pops": "0 e.g. []",
+ "every tag has a localised name": "['AFG', 'ALB', 'ALD', 'ANH', 'ARG', 'ARM', 'AST', 'AUS']"
+}

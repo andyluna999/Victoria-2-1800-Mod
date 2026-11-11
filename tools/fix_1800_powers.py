@@ -5,8 +5,15 @@ HPM's 1836 prestige, set after they had lost their empires -- Portugal sits at 1
 In 1800 both still held the Americas. Without this, Spain is unlikely to make the
 eight and Portugal certainly cannot, so neither could ever sphere its own colonies.
 """
+import os as _os
+_ROOT = _os.environ.get("HPM1800_ROOT") or _os.path.dirname(
+    _os.path.dirname(_os.path.abspath(__file__)))
+_SRC = _os.environ.get("HPM1800_SRC") or _os.path.join(_ROOT, "hpm", "HPM - Copy")
+_BUILD = _os.environ.get("HPM1800_BUILD") or _os.path.join(_ROOT, "build", "HPM")
+_WORK = _os.environ.get("HPM1800_WORK") or _os.path.join(_ROOT, "work")
+_TOOLS = _os.path.join(_ROOT, "tools")
 import re, glob
-MOD="/home/claude/build/HPM"
+MOD=_BUILD
 # 1800 standing: Britain and France first, then Russia and Austria, then Prussia,
 # Spain and the Ottomans. The United States was a minor power, not a near-peer.
 P1800={"ENG":130,"FRA":125,"RUS":115,"AUS":100,"SPA":95,"TUR":80,"PRU":75,

@@ -30,9 +30,16 @@ The sequence is the strangest in the hemisphere and the only one that ends in a 
 So the player gets the fork that mattered: obey the Cortes and Brazil goes back in the
 box, or remain and become the only monarchy the Americas produced that lasted.
 """
+import os as _os
+_ROOT = _os.environ.get("HPM1800_ROOT") or _os.path.dirname(
+    _os.path.dirname(_os.path.abspath(__file__)))
+_SRC = _os.environ.get("HPM1800_SRC") or _os.path.join(_ROOT, "hpm", "HPM - Copy")
+_BUILD = _os.environ.get("HPM1800_BUILD") or _os.path.join(_ROOT, "build", "HPM")
+_WORK = _os.environ.get("HPM1800_WORK") or _os.path.join(_ROOT, "work")
+_TOOLS = _os.path.join(_ROOT, "tools")
 import os, collections
 
-MOD = "/home/claude/build/HPM"
+MOD = _BUILD
 log = collections.Counter()
 EV, LOC = [], []
 def loc(k, v): LOC.append((k, v))

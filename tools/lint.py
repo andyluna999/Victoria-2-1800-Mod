@@ -1,8 +1,15 @@
 """Static checks on the built mod. Every one of these has caught a real defect."""
+import os as _os
+_ROOT = _os.environ.get("HPM1800_ROOT") or _os.path.dirname(
+    _os.path.dirname(_os.path.abspath(__file__)))
+_SRC = _os.environ.get("HPM1800_SRC") or _os.path.join(_ROOT, "hpm", "HPM - Copy")
+_BUILD = _os.environ.get("HPM1800_BUILD") or _os.path.join(_ROOT, "build", "HPM")
+_WORK = _os.environ.get("HPM1800_WORK") or _os.path.join(_ROOT, "work")
+_TOOLS = _os.path.join(_ROOT, "tools")
 import re, collections, glob, os, csv, collections, sys
 import json
-MOD=os.environ.get("LINT_TARGET","/home/claude/build/HPM")
-BASEFILE="/home/claude/tools/lint_baseline.json"
+MOD=os.environ.get("LINT_TARGET",_BUILD)
+BASEFILE=f"{_TOOLS}/lint_baseline.json"
 BASE=json.load(open(BASEFILE)) if os.path.exists(BASEFILE) and not os.environ.get("LINT_RECORD") else {}
 RECORD={}
 fails=0
@@ -210,7 +217,7 @@ chk("bookmark matches the start date", f"{start}.1.1" in bm)
 # were wrong: factory_cost, defense and supply_range in the new modifiers, plus
 # administrative_efficiency, which had been sitting in the Ottoman modifier since
 # that pass and had never been exercised.
-_src = re.sub(r"#.*", "", open("/home/claude/hpm/HPM - Copy/common/event_modifiers.txt",
+_src = re.sub(r"#.*", "", open(f"{_SRC}/common/event_modifiers.txt",
                                encoding="cp1252", errors="replace").read())
 _valid = set(re.findall(r"^\s+([a-z_]+)\s*=\s*-?[\d.]+\s*$", _src, re.M))
 _base = set(re.findall(r"^([a-z_0-9]+)\s*=\s*\{", _src, re.M))
@@ -349,7 +356,7 @@ for _f in glob.glob(f"{MOD}/technologies/*.txt"):
 # prestige, its technologies, its reforms and its ruling party. France loaded with
 # nothing and lost every war for twenty-four years.
 _vocab = set()
-for _f in glob.glob("/home/claude/hpm/HPM - Copy/history/countries/*.txt"):
+for _f in glob.glob(f"{_SRC}/history/countries/*.txt"):
     _t = re.sub(r"#.*", "", open(_f, encoding="cp1252", errors="replace").read())
     _vocab |= set(re.findall(r"^\s*([a-z_0-9]+)\s*=", _t, re.M))
 _alien = []
@@ -447,7 +454,7 @@ chk("a province gets a province modifier, not a country one", not _wrongscope,
 # and were dropping the naval_base line while they did it -- thirty-nine harbours HPM
 # ships were simply gone, including Charleston, Bordeaux, Rotterdam and La Coruna.
 _was = set()
-for _f in glob.glob("/home/claude/hpm/HPM - Copy/history/provinces/*/*.txt"):
+for _f in glob.glob(f"{_SRC}/history/provinces/*/*.txt"):
     if re.search(r"^\s*naval_base\s*=\s*[1-9]",
                  open(_f, encoding="cp1252", errors="replace").read(), re.M):
         _was.add(int(re.match(r"(\d+)", os.path.basename(_f)).group(1)))
@@ -478,7 +485,7 @@ chk("France holds no core on Hispaniola", not _hisp, _hisp)
 # twice and our version never applied.
 _em = open(f"{MOD}/common/event_modifiers.txt", encoding="cp1252", errors="replace").read()
 # silk_famine is duplicated in pristine HPM; we police only what we add.
-_pris = open("/home/claude/hpm/HPM - Copy/common/event_modifiers.txt",
+_pris = open(f"{_SRC}/common/event_modifiers.txt",
              encoding="cp1252", errors="replace").read()
 _prisdup = {k for k, v in collections.Counter(
     re.findall(r"^([a-z_0-9]+) = \{", _pris, re.M)).items() if v > 1}
