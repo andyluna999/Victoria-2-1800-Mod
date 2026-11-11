@@ -12,7 +12,7 @@ hpm/
 work/
 
 # data/ is seed data and IS committed -- the build cannot run without it
-# data/ is seed data and IS committed
+
 *.log
 
 # editors and systems
