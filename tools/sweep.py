@@ -301,7 +301,7 @@ if os.path.exists(tre):
 # Countries our own content brings into being later are armed in advance: Victoria II
 # reads every order of battle at the start of the game and hands one over when the
 # country appears. Their units sit on ground they do not hold yet, which is the point.
-SPAWNS_LATER = {"MEX", "CLM", "ARG", "CHL", "PEU", "VNZ", "ECU", "BOL", "URU",
+SPAWNS_LATER = {"MEX", "CLM", "ARG", "CHL", "PEU", "ECU", "BOL", "URU",
                 "PRG", "CUB", "PRI", "BRZ", "TEX", "CAL", "HAI", "ALD", "TUN", "TRI"}
 stranded, armyless = [], []
 for f in glob.glob(f"{MOD}/history/units/*.txt"):
@@ -493,7 +493,7 @@ chk("every country at war has a commander on day one",
 # rising, not its historical independence: the civil wars create Mexico, Colombia,
 # Argentina and Chile in 1810 and Peru in 1814.
 BORN_WITH = {"HAI": 1804, "MEX": 1810, "ARG": 1810, "CHL": 1810, "CLM": 1810,
-             "PEU": 1814, "BRZ": 1822, "VNZ": 1830, "ECU": 1830, "BOL": 1825,
+             "PEU": 1814, "BRZ": 1822, "VNZ": 1777, "ECU": 1830, "BOL": 1825,
              "URU": 1828, "PRG": 1811}
 early = []
 for tg, born in BORN_WITH.items():

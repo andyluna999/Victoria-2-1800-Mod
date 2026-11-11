@@ -42,7 +42,7 @@ def wr(p, t):
     open(p, "w", encoding="cp1252", errors="replace", newline="\n").write(t)
 def rd(p): return open(p, encoding="cp1252", errors="replace").read()
 
-VICE = ["NSP", "VPE", "VNG", "RDP", "CGC", "CBA", "PTR"]
+VICE = ["NSP", "VPE", "VNG", "VNZ", "RDP", "CGC", "CBA", "PTR"]
 ANY = "OR = { " + " ".join(f"tag = {t}" for t in VICE) + " }"
 
 MODS = """

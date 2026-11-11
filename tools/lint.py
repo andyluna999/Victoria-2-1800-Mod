@@ -406,6 +406,21 @@ for _f in glob.glob(f"{MOD}/history/countries/*.txt"):
     if not re.search(r'^\s*oob\s*=', open(_f, encoding="cp1252",
                                           errors="replace").read(), re.M):
         _undeclared.append(_tag)
+# The mirror of the declaration bug. A country that names an order of battle it has
+# no file for is pointing the engine at nothing -- VNM did, because it is created by
+# change_tag and carries its army over rather than reading one.
+_phantom = []
+for _f in glob.glob(f"{MOD}/history/countries/*.txt"):
+    _b = os.path.basename(_f)
+    if " - " not in _b: continue
+    _m = re.search(r'^\s*oob\s*=\s*"([^"]+)"',
+                   open(_f, encoding="cp1252", errors="replace").read(), re.M)
+    if _m and not os.path.exists(f"{MOD}/history/units/{_m.group(1)}"):
+        _phantom.append(f"{_b.split(' - ')[0]} -> {_m.group(1)}")
+
+chk("no country declares an order of battle that does not exist", not _phantom,
+    sorted(_phantom)[:8])
+
 chk("every order of battle is declared by its country", not _undeclared,
     sorted(_undeclared)[:8])
 
@@ -493,6 +508,72 @@ _dupmod = [k for k, v in collections.Counter(
     re.findall(r"^([a-z_0-9]+) = \{", _em, re.M)).items()
     if v > 1 and k not in _prisdup]
 chk("every modifier is defined exactly once", not _dupmod, sorted(_dupmod)[:8])
+
+# Two player reports turned out to be instances of general faults, and the instance
+# is worth much less than the class. Qatar governed from Billings, Montana; the Nguyen
+# fought a war decided at sea with no ships at all.
+_own = {}
+for _f in glob.glob(f"{MOD}/history/provinces/*/*.txt"):
+    _pid = int(re.match(r"(\d+)", os.path.basename(_f)).group(1))
+    _h = re.split(r"\n(?=\s*\d{3,4}\.\d{1,2}\.\d{1,2}\s*=)",
+                  open(_f, encoding="cp1252", errors="replace").read())[0]
+    _m = re.search(r"^\s*owner\s*=\s*([A-Z]{3})", _h, re.M)
+    _own[_pid] = _m.group(1) if _m else ""
+
+_stranded = []
+for _f in glob.glob(f"{MOD}/history/countries/*.txt"):
+    _b = os.path.basename(_f)
+    if " - " not in _b: continue
+    _tag = _b.split(" - ")[0].strip()
+    _h = re.split(r"\n(?=\s*\d{4}\.\d{1,2}\.\d{1,2}\s*=)",
+                  open(_f, encoding="cp1252", errors="replace").read())[0]
+    _m = re.search(r"^\s*capital\s*=\s*(\d+)", _h, re.M)
+    if not _m: continue
+    _mine = [p for p, o in _own.items() if o == _tag]
+    if _mine and int(_m.group(1)) not in _mine:
+        _stranded.append(f"{_tag}:{_m.group(1)}")
+chk("every country governs from land it holds", not _stranded, sorted(_stranded)[:8])
+
+# Quy Nhon is 1379 and Pleiku is 1378, and one transposed digit had the Nguyen
+# raising regiments on a plateau they did not govern. The re-homing pass moved them
+# silently every build, so nothing ever complained.
+_foreign = []
+# A tag that does not exist at the start -- French Algeria, the successor republics --
+# has its order of battle written against land it will hold when it is created, which
+# is correct and not a fault.
+_live = {t for t in _own.values() if t}
+for _f in glob.glob(f"{MOD}/history/units/*.txt"):
+    _tag = os.path.basename(_f)[:3]
+    if _tag not in _live: continue
+    for _m in re.finditer(r"\bhome\s*=\s*(\d+)",
+                          open(_f, encoding="cp1252", errors="replace").read()):
+        if _own.get(int(_m.group(1)), _tag) != _tag:
+            _foreign.append(f"{_tag} raises in {_m.group(1)} "
+                            f"(held by {_own.get(int(_m.group(1)))})")
+chk("no country raises a regiment on another country's land", not _foreign,
+    sorted(set(_foreign))[:8])
+
+_ports = set()
+for _f in glob.glob(f"{MOD}/history/provinces/*/*.txt"):
+    if re.search(r"^\s*naval_base\s*=\s*[1-9]",
+                 open(_f, encoding="cp1252", errors="replace").read(), re.M):
+        _ports.add(int(re.match(r"(\d+)", os.path.basename(_f)).group(1)))
+_shipless = []
+for _f in glob.glob(f"{MOD}/history/countries/*.txt"):
+    _b = os.path.basename(_f)
+    if " - " not in _b: continue
+    _tag = _b.split(" - ")[0].strip()
+    # This is about state navies. Ireland is dormant under Britain, and a people
+    # who hold coastline without building seagoing ships -- the Mapuche, the coastal
+    # nations of the Pacific north-west -- are not a gap in the data.
+    if _tag in ("IRE", "MAP", "COA", "COK", "SAL", "TLI", "YUP", "BCY"): continue
+    if len([p for p in _ports if _own.get(p) == _tag]) < 2: continue
+    _u = f"{MOD}/history/units/{_tag}_oob.txt"
+    if not os.path.exists(_u) or "ship = " not in open(
+            _u, encoding="cp1252", errors="replace").read():
+        _shipless.append(_tag)
+chk("a country with harbours has something to put in them", not _shipless,
+    sorted(_shipless)[:8])
 
 chk("the technology tree is reachable from the start date",
     _ty and min(_ty) <= start, f"earliest technology year is {min(_ty) if _ty else '?'}")

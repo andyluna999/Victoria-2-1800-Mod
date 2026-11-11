@@ -146,7 +146,7 @@ for f in glob.glob(f"{MOD}/technologies/*.txt"):
     break
 
 # --- 3. the colonies go to war with their metropole ---------------------------------
-COLONIAL = [("SPA", ["NSP", "VPE", "VNG", "RDP", "CGC", "CBA", "PTR"]),
+COLONIAL = [("SPA", ["NSP", "VPE", "VNG", "VNZ", "RDP", "CGC", "CBA", "PTR"]),
             ("NET", []), ("FRA", [])]
 f = f"{MOD}/history/wars/SecondCoalition.txt"
 if os.path.exists(f):

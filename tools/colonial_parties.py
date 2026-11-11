@@ -47,7 +47,7 @@ NAMES = {
  "socialist": "Partido Socialista", "communist": "Partido Comunista",
  "fascist": "Union Nacional",
 }
-TAGS = ["NSP", "VPE", "VNG", "RDP", "CGC", "CBA", "PTR", "EBR"]
+TAGS = ["NSP", "VPE", "VNG", "VNZ", "RDP", "CGC", "CBA", "PTR", "EBR"]
 LOC = []
 
 for f in glob.glob(f"{MOD}/common/countries/*.txt"):

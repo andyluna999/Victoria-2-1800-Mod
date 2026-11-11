@@ -43,3 +43,6 @@ before using them.
 | 9103100–9103199 | reform and the debt independence left |
 | 9102030–9102039 | Moscow to Waterloo |
 | 9103200–9103209 | the Mexican republic after the wars |
+| 9103300–9103309 | the Tay Son war |
+| 9103400–9103419 | Venezuela 1806-1823 |
+| 9103420–9103439 | Gran Colombia: union and separation |

@@ -17,20 +17,8 @@ fi
 
 cd "$ROOT"
 mkdir -p "$WORK"
-
-# The build reads a set of derived data files -- province tables, the 1836 pop
-# census, the colour index of the map -- that were produced once from HPM's own
-# files and its map images. Regenerating them needs the image pipeline; they ship
-# in data/ instead, and are copied into work/ on a fresh checkout.
-for f in "$ROOT"/data/*.json; do
-  [ -e "$f" ] || continue
-  b="$(basename "$f")"
-  [ -e "$WORK/$b" ] || cp "$f" "$WORK/$b"
-done
 rm -rf "$DST"; mkdir -p "$(dirname "$DST")"; cp -r "$SRC" "$DST"
 cd "$ROOT"
-# culture_names.json is generated rather than shipped, from tools/names_source.json
-python3 tools/build_names.py
 python3 tools/write_world.py
 python3 tools/fix_parties.py
 python3 tools/strip_1861.py
@@ -48,6 +36,11 @@ python3 tools/world_1800_political.py
 # follow world_1800_political, which writes these country files from scratch.
 python3 tools/colonial_parties.py
 python3 tools/corrections_1800.py
+# Venezuela has not been governed from Bogota since 1777. This must follow
+# apply_sa_layer, which rewrites South America wholesale.
+python3 tools/venezuela.py
+python3 tools/venezuela_wars.py
+python3 tools/gran_colombia.py
 python3 tools/world_pops_1800.py
 python3 tools/scotland_1800.py
 python3 tools/british_isles_1800.py
@@ -83,6 +76,13 @@ python3 tools/oob_new_tags.py
 python3 tools/successor_armies.py
 python3 tools/california_oob.py
 python3 tools/leaders_1800.py
+# Southeast Asia, corrected from a player report. This must follow leaders_1800,
+# which rewrites every order of battle.
+python3 tools/vietnam.py
+# The Central Highlands were Jarai, not Vietnamese.
+python3 tools/jarai.py
+# The patterns behind the player reports, applied everywhere.
+python3 tools/global_fixes.py
 python3 tools/spheres_1800.py
 python3 tools/navies_1800.py
 python3 tools/oob_relocate.py

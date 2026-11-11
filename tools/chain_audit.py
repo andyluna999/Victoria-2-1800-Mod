@@ -132,7 +132,11 @@ for eid, (f, b) in ours.items():
     # An event that guards on independence is not orphaned by an earlier tag change:
     # if the country already went its own way, the question is moot and the event is
     # meant not to fire. The 1820 crisis is exactly that.
+    # An event guarded against the successor already existing is not orphaned by the
+    # tag change: if the union formed first, the question is moot and the event is
+    # meant not to fire. Piar's trial is exactly that.
     if "h18c_independent" in trg: continue
+    if re.search(r"NOT\s*=\s*\{\s*exists\s*=\s*[A-Z]{3}\s*\}", trg): continue
     for when, src in becomes.get(tg.group(1), []):
         if when < int(yr.group(1)):
             risky.append(f"{f} #{eid} needs {tg.group(1)} in {yr.group(1)}, "

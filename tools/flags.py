@@ -369,6 +369,23 @@ OVERRIDE = {
  ("MEX", "_communist"):"mexico-hidalgo-revolt.png",
  ("MEX", "_fascist"):  "mexico-cristero-rebellion.png",
 }
+# The Nguyen dynasty, which the Gia Long proclamation creates. Three red bands on
+# yellow -- the long tinh, the court's own flag.
+OVERRIDE[("VNM", "")]           = "VNM.png"
+OVERRIDE[("VNM", "_monarchy")]  = "VNM_monarchy.png"
+OVERRIDE[("VNM", "_republic")]  = "VNM_republic.png"
+OVERRIDE[("VNM", "_communist")] = "VNM_communist.png"
+OVERRIDE[("VNM", "_fascist")]   = "VNM_fascist.png"
+
+# The Jarai of the Central Highlands. A brass gong on forest green: the gong sets
+# the Jarai apart from every neighbour that kept an army, because what they kept
+# instead was a king who could not give orders.
+OVERRIDE[("JRI", "")]           = "JRI.png"
+OVERRIDE[("JRI", "_monarchy")]  = "JRI_monarchy.png"
+OVERRIDE[("JRI", "_republic")]  = "JRI_republic.png"
+OVERRIDE[("JRI", "_communist")] = "JRI_communist.png"
+OVERRIDE[("JRI", "_fascist")]   = "JRI_fascist.png"
+
 for (_tg, _g), _fn in OVERRIDE.items():
     if _tg not in FLAGS: FLAGS[_tg] = (lambda f=_fn: art(f))
 for tag, fn in FLAGS.items():

@@ -91,7 +91,9 @@ leader = {{
 \tprestige = 0.3
 }}
 """
-f = f"{MOD}/history/units/VNG_oob.txt"
+# Boves raised the Venezuelan plains and never fought in New Granada; Morillo
+# landed at Santa Marta and campaigned in both.
+f = f"{MOD}/history/units/VNZ_oob.txt"
 if os.path.exists(f):
     s = rd(f)
     if "Morillo" not in s:

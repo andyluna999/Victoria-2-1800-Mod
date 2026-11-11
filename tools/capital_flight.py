@@ -36,7 +36,7 @@ import os
 
 MOD = _BUILD
 BASE = 9100100
-COLONIES = ["NSP", "VPE", "VNG", "RDP", "CGC", "CBA", "PTR"]
+COLONIES = ["NSP", "VPE", "VNG", "VNZ", "RDP", "CGC", "CBA", "PTR"]
 METRO = "SPA"
 
 # five tiers. Mining suffers worst because the mines were what the insurgency reached
